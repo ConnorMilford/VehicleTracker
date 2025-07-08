@@ -13,10 +13,6 @@ public class PlaneResponse extends Response {
 
     private List<List<Object>> states;
 
-    private LocalDateTime timePosition;
-    private LocalDateTime lastContact; 
-
-
     public PlaneResponse() {
         // Default constructor for deserialization
     }
@@ -69,15 +65,15 @@ public class PlaneResponse extends Response {
             // Extract and convert Times
             Object timePosObj = state.get(stateIndexMap.get("time_position"));
             String timePositionStr = "null";
-            if (timePosObj instanceof Number) {
-                long epochSec = ((Number) timePosObj).longValue();
+            if (timePosObj instanceof Number number) {
+                long epochSec = number.longValue();
                 timePositionStr = LocalDateTime.ofEpochSecond(epochSec, 0, java.time.ZoneOffset.UTC).toString();
             }
 
             Object lastContactObj = state.get(stateIndexMap.get("last_contact"));
             String lastContactStr = "null";
-            if (lastContactObj instanceof Number) {
-                long epochSec = ((Number) lastContactObj).longValue();
+            if (lastContactObj instanceof Number number) {
+                long epochSec = number.longValue();
                 lastContactStr = LocalDateTime.ofEpochSecond(epochSec, 0, java.time.ZoneOffset.UTC).toString();
             }
 

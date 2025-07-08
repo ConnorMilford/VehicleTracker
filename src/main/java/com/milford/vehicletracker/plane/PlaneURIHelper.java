@@ -10,9 +10,11 @@ public class PlaneURIHelper {
 
     /**
      * 
-     * @param queries - ArrList in format {"lamin=50.03"}
+     * @param queries - ArrList in format {"lamin=50.03", "...=...", ...}
      * @return
+     *    
      */
+
     public static String ConstructPlaneURIQueries(List<String> queries) {
         UriComponentsBuilder uriComponents 
          = UriComponentsBuilder.newInstance().fromUriString(BASEURI);

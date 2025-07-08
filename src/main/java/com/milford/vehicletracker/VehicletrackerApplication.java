@@ -22,6 +22,7 @@ public class VehicletrackerApplication {
 
 	@Bean
 	CommandLineRunner commandLineRunner(PlaneService planeService) {
+		
 		return args -> {
 
 			String laMin = "lamin=50.0";
