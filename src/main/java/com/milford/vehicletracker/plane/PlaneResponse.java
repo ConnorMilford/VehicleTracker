@@ -1,5 +1,6 @@
 package com.milford.vehicletracker.plane;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,16 @@ import com.milford.vehicletracker.Response;
 public class PlaneResponse extends Response {
 
     private long time;
+
+    private List<List<Object>> states;
+
+    private LocalDateTime timePosition;
+    private LocalDateTime lastContact; 
+
+
+    public PlaneResponse() {
+        // Default constructor for deserialization
+    }
 
     public static Map<String, Integer> stateIndexMap = Map.ofEntries(
 
@@ -32,7 +43,6 @@ public class PlaneResponse extends Response {
         
     );
     
-    private List<List<Object>> states;
 
     public long getTime() {
         return time;
@@ -52,24 +62,44 @@ public class PlaneResponse extends Response {
         sb.append("Aircraft States (Extended):\n");
 
         for (List<Object> state : states) {
-            sb.append(" - ICAO24: ").append(state.get(0))
-            .append(", Callsign: ").append(state.get(1))
-            .append(", Origin Country: ").append(state.get(2))
-            .append(", Time Position: ").append(state.get(3))
-            .append(", Last Contact: ").append(state.get(4))
-            .append(", Longitude: ").append(state.get(5))
-            .append(", Latitude: ").append(state.get(6))
-            .append(", Baro Altitude: ").append(state.get(7))
-            .append(", On Ground: ").append(state.get(8))
-            .append(", Velocity: ").append(state.get(9))
-            .append(", Heading: ").append(state.get(10))
-            .append(", Vertical Rate: ").append(state.get(11))
-            .append(", Sensors: ").append(state.get(12))
-            .append(", Geo Altitude: ").append(state.get(13))
-            .append(", Squawk: ").append(state.get(14))
-            .append(", SPI: ").append(state.get(15))
-            .append(", Position Source: ").append(state.get(16))
-            .append("\n\n");
+            if (state.size() < 17) {
+                continue; // Skip incomplete states
+            }
+
+            // Extract and convert Times
+            Object timePosObj = state.get(stateIndexMap.get("time_position"));
+            String timePositionStr = "null";
+            if (timePosObj instanceof Number) {
+                long epochSec = ((Number) timePosObj).longValue();
+                timePositionStr = LocalDateTime.ofEpochSecond(epochSec, 0, java.time.ZoneOffset.UTC).toString();
+            }
+
+            Object lastContactObj = state.get(stateIndexMap.get("last_contact"));
+            String lastContactStr = "null";
+            if (lastContactObj instanceof Number) {
+                long epochSec = ((Number) lastContactObj).longValue();
+                lastContactStr = LocalDateTime.ofEpochSecond(epochSec, 0, java.time.ZoneOffset.UTC).toString();
+            }
+
+            // Build the state string
+            sb.append("  ICAO24: ").append(state.get(0))
+              .append("\n Callsign: ").append(state.get(1))
+              .append("\n Origin Country: ").append(state.get(2))
+              .append("\n Time Position: ").append(timePositionStr)
+              .append("\n Last Contact: ").append(lastContactStr)
+              .append("\n Longitude: ").append(state.get(5))
+              .append("\n Latitude: ").append(state.get(6))
+              .append("\n Baro Altitude: ").append(state.get(7))
+              .append("\n On Ground: ").append(state.get(8))
+              .append("\n Velocity: ").append(state.get(9))
+              .append("\n Heading: ").append(state.get(10))
+              .append("\n Vertical Rate: ").append(state.get(11))
+              .append("\n Sensors: ").append(state.get(12))
+              .append("\n Geo Altitude: ").append(state.get(13))
+              .append("\n Squawk: ").append(state.get(14))
+              .append("\n SPI: ").append(state.get(15))
+              .append("\n Position Source: ").append(state.get(16))
+              .append("\n\n");
         }
 
         return sb.toString();
