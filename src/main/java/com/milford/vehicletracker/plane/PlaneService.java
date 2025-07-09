@@ -27,13 +27,21 @@ public class PlaneService {
             .retrieve()
             .body(PlaneResponse.class);
 
-        if (response == null || response.getPlanes() == null) {
+        if (response == null || response.getStates() == null) {
             return List.of();
         }
 
-        return PlaneConverter.convertResponsetoDTO(response.getPlanes());
+        return PlaneConverter.convertResponsetoDTO(response.getStates());
     }
 
-    
 
-}
+    //TODO: PROPERLY IMPLEMENT THIS METHOD
+    public String reverseGeocode(double latitude, double longitude) {
+        String response = restClient.get()
+            .uri("https://nominatim.openstreetmap.org/reverse?format=json&lat=" + latitude + "&lon=" + longitude)
+            .retrieve()
+            .body(String.class);
+
+        return response;
+    } 
+}  

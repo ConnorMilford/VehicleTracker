@@ -23,6 +23,7 @@ public class PlaneURIHelper {
             uriComponents.query(query);
          }
 
+         System.out.println("PlaneURIHelper.ConstructPlaneURIQueries: " + uriComponents.toUriString());
         return uriComponents.toUriString();
     }
     

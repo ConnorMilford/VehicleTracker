@@ -11,7 +11,7 @@ public class PlaneResponse extends Response {
 
     private long time;
 
-    private List<List<Object>> planes;
+    private List<List<Object>> states; // must exactly match the JSON structure, so name must be the same
 
 
     public PlaneResponse() {
@@ -45,22 +45,22 @@ public class PlaneResponse extends Response {
         return time;
     }
 
-    public List<List<Object>> getPlanes() {
-        return planes;
+    public List<List<Object>> getStates() {
+        return states;
     }
 
     @Override
     public String toString() {
-        if (planes == null || planes.isEmpty()) {
+        if (states == null || states.isEmpty()) {
             return "No aircraft available.";
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Aircraft planes (Extended):\n");
+        sb.append("Aircraft states (Extended):\n");
 
-        for (List<Object> state : planes) {
+        for (List<Object> state : states) {
             if (state.size() < 17) {
-                continue; // Skip incomplete planes
+                continue; // Skip incomplete states
             }
 
             // Extract and convert Times

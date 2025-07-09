@@ -17,21 +17,20 @@ public class PlaneController {
     //Examnple request:
     //http://localhost:8080/planes?queries=extended=1&queries=lomin=-1.0&queries=lamin=50.0&queries=lomax=4.0&queries=lamax=54.0
 
-    //TODO: ENDPOINT IS CURRENTLY BLANK BUT WE ARE GETTING THERE.
-
     @GetMapping("/planes")
     public ResponseEntity<List<PlaneDTO>> getPlanes(@RequestParam(required=false, value="queries") List<String> queries) {
         System.out.println("PlaneController.getPlanes: " + queries);
 
         if (queries == null || queries.isEmpty()) {
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build();
         }
         
         return ResponseEntity.ok(
-            //TODO: PROCESS DATA BEFORE RESPONSE
             planeService.queryPlanes(PlaneURIHelper.ConstructPlaneURIQueries(queries))
         );
     }
+
+    
 
 
 
