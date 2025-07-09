@@ -1,7 +1,8 @@
 package com.milford.vehicletracker.plane;
 
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -19,13 +20,18 @@ public class PlaneService {
                         .build();
     }
 
-     public ResponseEntity<PlaneResponse> queryPlanes(String planesUri) {
+
+     public List<PlaneDTO> queryPlanes(String planesUri) {
         PlaneResponse response = restClient.get()
             .uri(planesUri)
             .retrieve()
             .body(PlaneResponse.class);
 
-        return ResponseEntity.ok(response);
+        if (response == null || response.getPlanes() == null) {
+            return List.of();
+        }
+
+        return PlaneConverter.convertResponsetoDTO(response.getPlanes());
     }
 
     

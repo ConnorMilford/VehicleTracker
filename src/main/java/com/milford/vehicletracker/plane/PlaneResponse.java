@@ -11,7 +11,8 @@ public class PlaneResponse extends Response {
 
     private long time;
 
-    private List<List<Object>> states;
+    private List<List<Object>> planes;
+
 
     public PlaneResponse() {
         // Default constructor for deserialization
@@ -44,22 +45,22 @@ public class PlaneResponse extends Response {
         return time;
     }
 
-    public List<List<Object>> getStates() {
-        return states;
+    public List<List<Object>> getPlanes() {
+        return planes;
     }
 
     @Override
     public String toString() {
-        if (states == null || states.isEmpty()) {
-            return "No aircraft states available.";
+        if (planes == null || planes.isEmpty()) {
+            return "No aircraft available.";
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Aircraft States (Extended):\n");
+        sb.append("Aircraft planes (Extended):\n");
 
-        for (List<Object> state : states) {
+        for (List<Object> state : planes) {
             if (state.size() < 17) {
-                continue; // Skip incomplete states
+                continue; // Skip incomplete planes
             }
 
             // Extract and convert Times

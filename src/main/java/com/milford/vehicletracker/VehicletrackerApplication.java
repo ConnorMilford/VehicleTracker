@@ -1,17 +1,7 @@
 package com.milford.vehicletracker;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
-
-import com.milford.vehicletracker.plane.PlaneResponse;
-import com.milford.vehicletracker.plane.PlaneService;
-import com.milford.vehicletracker.plane.PlaneURIHelper;
 
 @SpringBootApplication
 public class VehicletrackerApplication {
@@ -20,10 +10,11 @@ public class VehicletrackerApplication {
 		SpringApplication.run(VehicletrackerApplication.class, args);
 	}
 
+	/* 
 	@Bean
 	CommandLineRunner commandLineRunner(PlaneService planeService) {
 		
-		return args -> {
+		/* return args -> {
 
 			String laMin = "lamin=50.0";
 			String laMax = "lamax=54.0";
@@ -39,13 +30,12 @@ public class VehicletrackerApplication {
 			queries.add(loMax);
 			queries.add("extended=1");
 
-			String query = pHelper.ConstructPlaneURIQueries(queries);
+			//String query = pHelper.ConstructPlaneURIQueries(queries);
 
-			ResponseEntity<PlaneResponse> planes = planeService.queryPlanes(query);
-			System.out.println(planes.toString());
+			//List<PlaneDTO>> planes = planeService.queryPlanes(query);
+			//System.out.println(planes);
 
 			
-		};
-	}
-
+		}; 
+		} */
 }
