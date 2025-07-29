@@ -21,6 +21,7 @@ public class PlaneController {
     public ResponseEntity<List<PlaneDTO>> getPlanes(@RequestParam(required=false, value="queries") List<String> queries) {
         System.out.println("PlaneController.getPlanes: " + queries);
 
+        
         if (queries == null || queries.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }

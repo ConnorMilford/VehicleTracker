@@ -6,7 +6,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class PlaneURIHelper {
 
-    public final static String BASEURI = "https://opensky-network.org/api/states/all";
+    public final static String PLANE_API_BASEURI = "https://opensky-network.org/api/states/all";
+
+    public final static String GEOCODE_API_BASEURI = "https://nominatim.openstreetmap.org/reverse?"; // lat=<value>&lon=<value>&<params>
 
     /**
      * 
@@ -17,7 +19,7 @@ public class PlaneURIHelper {
 
     public static String ConstructPlaneURIQueries(List<String> queries) {
         UriComponentsBuilder uriComponents 
-         = UriComponentsBuilder.newInstance().fromUriString(BASEURI);
+         = UriComponentsBuilder.newInstance().fromUriString(PLANE_API_BASEURI);
 
          for (String query : queries) {
             uriComponents.query(query);

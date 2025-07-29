@@ -16,7 +16,7 @@ public class PlaneService {
 
     public PlaneService(RestClient.Builder builder) {
         this.restClient = builder
-                        .baseUrl(PlaneURIHelper.BASEURI)
+                        .baseUrl(PlaneURIHelper.PLANE_API_BASEURI)
                         .build();
     }
 
@@ -31,17 +31,9 @@ public class PlaneService {
             return List.of();
         }
 
-        return PlaneConverter.convertResponsetoDTO(response.getStates());
+        return PlaneConverter.convertResponsetoDTOs(response.getStates());
     }
 
 
-    //TODO: PROPERLY IMPLEMENT THIS METHOD
-    public String reverseGeocode(double latitude, double longitude) {
-        String response = restClient.get()
-            .uri("https://nominatim.openstreetmap.org/reverse?format=json&lat=" + latitude + "&lon=" + longitude)
-            .retrieve()
-            .body(String.class);
-
-        return response;
-    } 
+     
 }  

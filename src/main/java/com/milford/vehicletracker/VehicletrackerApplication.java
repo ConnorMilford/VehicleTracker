@@ -12,30 +12,15 @@ public class VehicletrackerApplication {
 
 	/* 
 	@Bean
-	CommandLineRunner commandLineRunner(PlaneService planeService) {
+	CommandLineRunner commandLineRunner(GeocodeService geocodeService) {
 		
-		/* return args -> {
+		return args -> {
+			geocodeService.reverseGeocode();
 
-			String laMin = "lamin=50.0";
-			String laMax = "lamax=54.0";
-			String loMin = "lomin=-1.0";
-			String loMax = "lomax=3.0";
 
-			PlaneURIHelper pHelper = new PlaneURIHelper();
-
-			List<String> queries = new ArrayList<>();
-			queries.add(laMin);
-			queries.add(loMin);
-			queries.add(laMax);
-			queries.add(loMax);
-			queries.add("extended=1");
-
-			//String query = pHelper.ConstructPlaneURIQueries(queries);
-
-			//List<PlaneDTO>> planes = planeService.queryPlanes(query);
-			//System.out.println(planes);
-
-			
+		
 		}; 
-		} */
+
+	} */
+
 }

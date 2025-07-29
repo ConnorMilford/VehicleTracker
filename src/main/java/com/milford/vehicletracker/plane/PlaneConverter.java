@@ -5,6 +5,14 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.client.RestClient;
+import com.milford.vehicletracker.location.GeocodeConverter;
+
+
+
+/** Helper class for converting plane data */
+
+
 public class PlaneConverter {
     
     private static int toInt(Object obj) {
@@ -40,8 +48,18 @@ public class PlaneConverter {
 
         plane.setTime_position(convertToLocalDateTime(toInt(planeData.get(PlaneResponse.stateIndexMap.get("time_position")))));
         plane.setLast_contact(convertToLocalDateTime(toInt(planeData.get(PlaneResponse.stateIndexMap.get("last_contact")))));
-        plane.setLongitude(toDouble(planeData.get(PlaneResponse.stateIndexMap.get("longitude"))));
-        plane.setLatitude(toDouble(planeData.get(PlaneResponse.stateIndexMap.get("latitude"))));
+
+        //TODO: Reverse geocode 
+        double longitude = toDouble(planeData.get(PlaneResponse.stateIndexMap.get("longitude")));
+        double latitude = toDouble(planeData.get(PlaneResponse.stateIndexMap.get("latitude")));
+        
+
+        GeocodeConverter geocodeConverter = new GeocodeConverter(RestClient.builder());
+        String location = geocodeConverter.reverseGeocode(String.valueOf(latitude), String.valueOf(longitude));
+        plane.setLocation(location);
+        
+
+
         plane.setBaro_altitude(toDouble(planeData.get(PlaneResponse.stateIndexMap.get("baro_altitude"))));
         plane.setOn_ground(Boolean.TRUE.equals(planeData.get(PlaneResponse.stateIndexMap.get("on_ground"))));
         plane.setVelocity(toDouble(planeData.get(PlaneResponse.stateIndexMap.get("velocity"))));
@@ -64,7 +82,8 @@ public class PlaneConverter {
         return plane;
     }
 
-    public static List<PlaneDTO> convertResponsetoDTO(List<List<Object>> planes) {
+
+    public static List<PlaneDTO> convertResponsetoDTOs(List<List<Object>> planes) {
         List<PlaneDTO> planeDTOs = new ArrayList<>();
 
         for (List<Object> plane : planes){

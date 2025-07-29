@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+/** Data Transfer Object for Plane information */
+
 @AllArgsConstructor
 @NoArgsConstructor
 @JavaBean
@@ -29,6 +32,7 @@ public class PlaneDTO implements Serializable {
     private double velocity;
     private double true_track;
     private double vertical_rate;
+    private String location; // Location from reverse geocode service
     private int[] sensors;
     private double geo_altitude;
     private String squawk;
